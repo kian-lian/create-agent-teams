@@ -1,0 +1,356 @@
+# Crisis Response Team Template
+# 危机响应团队 - 紧急问题处理
+
+name: crisis-response-team
+description: Rapid response team for production incidents and critical issues
+topology: command-structure
+leadership: incident-commander
+methodology: incident-response
+
+team_size: 5
+estimated_duration: immediate-resolution
+token_budget: premium-urgent
+
+roles:
+  - id: incident-commander
+    type: crisis-leader
+    model: opus
+    description: Overall incident coordination, decision making, communication
+    skills:
+      - incident-management
+      - crisis-communication
+      - decision-making
+    responsibilities:
+      - Assess incident severity
+      - Coordinate response team
+      - Make critical decisions
+      - Communicate with stakeholders
+      - Lead post-mortem
+    deliverables:
+      - Incident status updates
+      - Resolution decisions
+      - Post-mortem report
+    availability: immediate
+
+  - id: debug-specialist
+    type: investigator
+    model: opus
+    description: Root cause analysis, system investigation, diagnostics
+    skills:
+      - debugging
+      - system-analysis
+      - log-analysis
+      - performance-profiling
+    responsibilities:
+      - Analyze system logs
+      - Identify root cause
+      - Trace error sources
+      - Investigate system state
+    deliverables:
+      - Root cause analysis
+      - Debug findings
+      - System state report
+    reports_to: incident-commander
+
+  - id: fix-engineer
+    type: implementer
+    model: sonnet
+    description: Rapid fix implementation, hotfix deployment
+    skills:
+      - rapid-development
+      - hotfix-deployment
+      - code-patching
+    responsibilities:
+      - Implement immediate fixes
+      - Deploy hotfixes
+      - Rollback if needed
+      - Verify fixes
+    deliverables:
+      - Hotfix code
+      - Deployment scripts
+      - Rollback plan
+    reports_to: incident-commander
+
+  - id: system-monitor
+    type: observer
+    model: sonnet
+    description: System monitoring, metrics tracking, impact assessment
+    skills:
+      - monitoring-tools
+      - metrics-analysis
+      - alerting-systems
+    responsibilities:
+      - Monitor system health
+      - Track impact metrics
+      - Alert on changes
+      - Measure recovery
+    deliverables:
+      - Impact assessment
+      - Metrics report
+      - Recovery confirmation
+    reports_to: incident-commander
+
+  - id: communication-lead
+    type: communicator
+    model: haiku
+    description: Stakeholder updates, status page, customer communication
+    skills:
+      - crisis-communication
+      - stakeholder-management
+      - status-reporting
+    responsibilities:
+      - Update status page
+      - Notify stakeholders
+      - Draft customer communications
+      - Coordinate with support
+    deliverables:
+      - Status updates
+      - Stakeholder notifications
+      - Customer communications
+    reports_to: incident-commander
+
+workflow:
+  phases:
+    - name: detection
+      duration: immediate
+      participants: [system-monitor]
+      activities:
+        - Alert triggered
+        - Initial assessment
+        - Severity classification
+        - Team activation
+
+    - name: triage
+      duration: 5-15min
+      participants: [incident-commander, debug-specialist, system-monitor]
+      activities:
+        - Impact assessment
+        - Severity confirmation
+        - Resource allocation
+        - Communication initiation
+
+    - name: investigation
+      duration: 15-30min
+      participants: [debug-specialist, system-monitor]
+      parallel: true
+      activities:
+        - Log analysis
+        - System investigation
+        - Root cause identification
+        - Reproduce issue
+
+    - name: mitigation
+      duration: 10-30min
+      participants: [fix-engineer, debug-specialist]
+      activities:
+        - Immediate mitigation
+        - Workaround implementation
+        - Service restoration
+        - Impact reduction
+
+    - name: resolution
+      duration: 30-60min
+      participants: [fix-engineer, system-monitor]
+      activities:
+        - Permanent fix implementation
+        - Testing
+        - Deployment
+        - Verification
+
+    - name: recovery
+      duration: 15-30min
+      participants: [system-monitor, communication-lead]
+      activities:
+        - System stabilization
+        - Performance verification
+        - All-clear confirmation
+        - Final communications
+
+    - name: post-mortem
+      duration: 60min (next day)
+      participants: all
+      activities:
+        - Timeline reconstruction
+        - Root cause analysis
+        - Action items identification
+        - Process improvements
+
+communication:
+  channels:
+    - name: war-room
+      type: synchronous
+      participants: all
+      frequency: continuous
+      platform: dedicated-channel
+      priority: immediate
+
+    - name: status-updates
+      type: broadcast
+      participants: [incident-commander, communication-lead]
+      frequency: every-15min
+      audience: stakeholders
+
+    - name: technical-sync
+      type: synchronous
+      participants: [debug-specialist, fix-engineer]
+      frequency: as-needed
+      focus: technical-details
+
+  protocols:
+    - Clear role assignments
+    - Single source of truth
+    - No blame during incident
+    - Focus on resolution
+    - Document everything
+
+severity_levels:
+  - level: SEV1
+    description: Complete service outage
+    response_time: < 5min
+    team_size: full-team
+    escalation: immediate
+
+  - level: SEV2
+    description: Major functionality impacted
+    response_time: < 15min
+    team_size: 3-4 members
+    escalation: 30min
+
+  - level: SEV3
+    description: Minor functionality impacted
+    response_time: < 30min
+    team_size: 2-3 members
+    escalation: 2hours
+
+  - level: SEV4
+    description: Non-critical issue
+    response_time: < 2hours
+    team_size: 1-2 members
+    escalation: next-day
+
+decision_tree:
+  - question: Is the service completely down?
+    yes: SEV1
+    no: continue
+
+  - question: Are customers unable to complete critical actions?
+    yes: SEV2
+    no: continue
+
+  - question: Is there data loss or security impact?
+    yes: SEV1
+    no: continue
+
+  - question: Are multiple customers affected?
+    yes: SEV2
+    no: SEV3
+
+response_procedures:
+  rollback:
+    triggers:
+      - Fix makes things worse
+      - Cannot identify root cause quickly
+      - Customer impact increasing
+    steps:
+      - Identify last known good state
+      - Execute rollback procedure
+      - Verify service restoration
+      - Document rollback
+
+  hotfix:
+    triggers:
+      - Root cause identified
+      - Fix available
+      - Testing complete
+    steps:
+      - Prepare hotfix branch
+      - Minimal testing
+      - Deploy to production
+      - Monitor closely
+
+  workaround:
+    triggers:
+      - Permanent fix will take time
+      - Partial mitigation possible
+      - Customer impact reducible
+    steps:
+      - Implement temporary solution
+      - Communicate limitations
+      - Plan permanent fix
+      - Monitor workaround
+
+tools:
+  monitoring:
+    - Datadog
+    - New Relic
+    - CloudWatch
+    - Custom dashboards
+
+  communication:
+    - Slack (war room)
+    - StatusPage.io
+    - PagerDuty
+    - Email templates
+
+  debugging:
+    - Log aggregation
+    - APM tools
+    - Database query analyzers
+    - Network analyzers
+
+post_mortem_template:
+  sections:
+    - Incident summary
+    - Timeline of events
+    - Root cause analysis
+    - Impact assessment
+    - What went well
+    - What went wrong
+    - Action items
+    - Lessons learned
+
+  questions:
+    - How was the incident detected?
+    - How long did it take to respond?
+    - What was the root cause?
+    - How can we prevent recurrence?
+    - What monitoring was missing?
+    - How can we improve response?
+
+metrics:
+  - Time to detection (TTD)
+  - Time to response (TTR)
+  - Time to mitigation (TTM)
+  - Time to resolution (TTR)
+  - Customer impact duration
+  - Messages sent
+  - Decisions made
+  - Rollbacks performed
+
+escalation:
+  technical:
+    L1: fix-engineer
+    L2: debug-specialist
+    L3: incident-commander
+    L4: CTO
+
+  business:
+    L1: communication-lead
+    L2: incident-commander
+    L3: Product Owner
+    L4: CEO
+
+recovery_verification:
+  - All services responding
+  - Performance back to baseline
+  - No error rate elevation
+  - Customer reports ceased
+  - Monitoring green
+  - Dependent services healthy
+
+notes: |
+  This template is optimized for rapid incident response with clear
+  command structure and communication protocols. Focus on quick
+  resolution over perfect solutions. Suitable for production incidents,
+  security breaches, and critical system failures. Remember: Fix first,
+  blame later (never).

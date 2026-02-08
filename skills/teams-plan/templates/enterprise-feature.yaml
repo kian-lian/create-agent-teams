@@ -1,0 +1,415 @@
+# Enterprise Feature Team Template
+# 企业级功能开发团队 - 大型功能实现
+
+name: enterprise-feature-team
+description: Enterprise-grade team for large feature development with formal processes
+topology: hierarchical
+leadership: tech-lead
+methodology: scaled-agile
+
+team_size: 12
+estimated_duration: 8-12 weeks
+token_budget: premium
+
+roles:
+  - id: product-owner
+    type: business-leader
+    model: opus
+    description: Stakeholder management, business requirements, acceptance
+    skills:
+      - stakeholder-management
+      - business-analysis
+      - requirements-engineering
+    responsibilities:
+      - Interface with stakeholders
+      - Define business requirements
+      - Approve deliverables
+      - Manage budget and timeline
+    deliverables:
+      - Business requirements document
+      - Stakeholder communications
+      - Sign-off documents
+
+  - id: tech-lead
+    type: technical-leader
+    model: opus
+    description: Technical architecture, team leadership, quality assurance
+    skills:
+      - system-architecture
+      - technical-leadership
+      - code-review
+    responsibilities:
+      - Define technical architecture
+      - Lead technical team
+      - Conduct code reviews
+      - Ensure quality standards
+    deliverables:
+      - Architecture design document
+      - Technical specifications
+      - Code review reports
+    reports_to: product-owner
+
+  - id: ux-lead
+    type: design-leader
+    model: sonnet
+    description: Design system ownership, UX standards, design reviews
+    skills:
+      - design-systems
+      - ux-research
+      - accessibility
+    responsibilities:
+      - Maintain design system
+      - Conduct UX research
+      - Review all designs
+      - Ensure accessibility compliance
+    deliverables:
+      - Design system documentation
+      - UX research findings
+      - Accessibility audit
+    reports_to: product-owner
+
+  - id: frontend-architect
+    type: specialist
+    model: sonnet
+    description: Frontend architecture, performance optimization, standards
+    skills:
+      - frontend-architecture
+      - performance-optimization
+      - web-standards
+    responsibilities:
+      - Design frontend architecture
+      - Optimize performance
+      - Establish coding standards
+      - Review frontend code
+    deliverables:
+      - Frontend architecture document
+      - Performance benchmarks
+      - Coding standards guide
+    reports_to: tech-lead
+
+  - id: backend-architect
+    type: specialist
+    model: sonnet
+    description: Backend architecture, API design, scalability
+    skills:
+      - api-design
+      - microservices
+      - database-architecture
+    responsibilities:
+      - Design backend architecture
+      - Define API contracts
+      - Ensure scalability
+      - Review backend code
+    deliverables:
+      - Backend architecture document
+      - API specification
+      - Scalability plan
+    reports_to: tech-lead
+
+  - id: frontend-dev-1
+    type: developer
+    model: sonnet
+    description: UI implementation, component development
+    skills:
+      - react-development
+      - responsive-design
+      - component-libraries
+    responsibilities:
+      - Implement UI components
+      - Ensure responsive design
+      - Write unit tests
+      - Documentation
+    deliverables:
+      - UI components
+      - Unit tests
+      - Component documentation
+    reports_to: frontend-architect
+
+  - id: frontend-dev-2
+    type: developer
+    model: sonnet
+    description: UI implementation, state management
+    skills:
+      - state-management
+      - react-development
+      - testing
+    responsibilities:
+      - Implement application logic
+      - Manage application state
+      - Integration with backend
+      - Write tests
+    deliverables:
+      - Application features
+      - Integration code
+      - Test suites
+    reports_to: frontend-architect
+
+  - id: backend-dev-1
+    type: developer
+    model: sonnet
+    description: API development, business logic
+    skills:
+      - api-development
+      - business-logic
+      - database-programming
+    responsibilities:
+      - Implement API endpoints
+      - Write business logic
+      - Database operations
+      - Write tests
+    deliverables:
+      - API implementations
+      - Business logic modules
+      - Database migrations
+    reports_to: backend-architect
+
+  - id: backend-dev-2
+    type: developer
+    model: sonnet
+    description: Integration services, third-party APIs
+    skills:
+      - system-integration
+      - api-consumption
+      - message-queues
+    responsibilities:
+      - Integrate external services
+      - Implement message queues
+      - Handle async operations
+      - Write tests
+    deliverables:
+      - Integration services
+      - Message handlers
+      - Integration tests
+    reports_to: backend-architect
+
+  - id: database-engineer
+    type: specialist
+    model: sonnet
+    description: Database design, optimization, migrations
+    skills:
+      - database-design
+      - query-optimization
+      - data-modeling
+    responsibilities:
+      - Design database schema
+      - Optimize queries
+      - Plan migrations
+      - Ensure data integrity
+    deliverables:
+      - Database schema
+      - Migration scripts
+      - Performance reports
+    reports_to: backend-architect
+
+  - id: qa-lead
+    type: quality-leader
+    model: sonnet
+    description: Test strategy, quality gates, test automation
+    skills:
+      - test-strategy
+      - test-automation
+      - quality-metrics
+    responsibilities:
+      - Define test strategy
+      - Lead QA team
+      - Establish quality gates
+      - Report quality metrics
+    deliverables:
+      - Test strategy document
+      - Quality reports
+      - Test automation framework
+    reports_to: tech-lead
+
+  - id: security-engineer
+    type: specialist
+    model: sonnet
+    description: Security review, compliance, vulnerability assessment
+    skills:
+      - security-assessment
+      - compliance
+      - penetration-testing
+    responsibilities:
+      - Conduct security reviews
+      - Ensure compliance
+      - Perform vulnerability assessments
+      - Security training
+    deliverables:
+      - Security audit report
+      - Compliance checklist
+      - Vulnerability report
+    reports_to: tech-lead
+
+workflow:
+  phases:
+    - name: planning
+      duration: 15%
+      participants: [product-owner, tech-lead, ux-lead]
+      activities:
+        - Requirements analysis
+        - Architecture design
+        - Resource planning
+        - Risk assessment
+
+    - name: design
+      duration: 20%
+      participants: [ux-lead, frontend-architect, backend-architect]
+      dependencies: [planning]
+      activities:
+        - Detailed design
+        - API contracts
+        - Database design
+        - Security design
+
+    - name: implementation-sprint-1
+      duration: 20%
+      participants: [all-developers]
+      dependencies: [design]
+      activities:
+        - Core functionality
+        - Basic UI
+        - API endpoints
+        - Database setup
+
+    - name: implementation-sprint-2
+      duration: 20%
+      participants: [all-developers]
+      dependencies: [implementation-sprint-1]
+      activities:
+        - Advanced features
+        - Integration
+        - Error handling
+        - Performance optimization
+
+    - name: testing
+      duration: 15%
+      participants: [qa-lead, all-developers]
+      dependencies: [implementation-sprint-2]
+      activities:
+        - Unit testing
+        - Integration testing
+        - System testing
+        - Security testing
+        - Performance testing
+
+    - name: uat
+      duration: 5%
+      participants: [product-owner, qa-lead]
+      dependencies: [testing]
+      activities:
+        - User acceptance testing
+        - Stakeholder review
+        - Final adjustments
+
+    - name: deployment
+      duration: 5%
+      participants: [tech-lead, backend-architect, security-engineer]
+      dependencies: [uat]
+      activities:
+        - Production deployment
+        - Monitoring setup
+        - Documentation finalization
+        - Handover
+
+communication:
+  channels:
+    - name: daily-scrum
+      type: synchronous
+      participants: all-developers
+      frequency: daily
+      duration: 15min
+
+    - name: leadership-sync
+      type: synchronous
+      participants: [product-owner, tech-lead, ux-lead]
+      frequency: twice-weekly
+      duration: 30min
+
+    - name: sprint-planning
+      type: synchronous
+      participants: all
+      frequency: bi-weekly
+      duration: 120min
+
+    - name: architecture-review
+      type: synchronous
+      participants: [tech-lead, frontend-architect, backend-architect]
+      frequency: weekly
+      duration: 60min
+
+    - name: stakeholder-update
+      type: asynchronous
+      participants: [product-owner]
+      frequency: weekly
+
+coordination:
+  task_management: jira
+  version_control: git-flow
+  documentation: confluence
+  decision_making: consensus-with-escalation
+  conflict_resolution: tech-lead-mediation
+
+quality_gates:
+  - name: design-review
+    owner: tech-lead
+    criteria:
+      - Architecture approved
+      - Security review complete
+      - UX review complete
+      - Risk assessment done
+
+  - name: code-review
+    owner: architects
+    criteria:
+      - Code standards met
+      - Tests written
+      - Documentation complete
+      - No security vulnerabilities
+
+  - name: sprint-review
+    owner: product-owner
+    criteria:
+      - Sprint goals met
+      - Demo successful
+      - Stakeholder feedback addressed
+
+  - name: release-readiness
+    owner: tech-lead
+    criteria:
+      - All tests passing
+      - Performance benchmarks met
+      - Security scan clean
+      - Documentation complete
+      - Deployment plan approved
+
+error_recovery:
+  agent_failure: escalate-to-lead
+  task_failure: pair-programming
+  deadline_miss: scope-negotiation
+  quality_issue: dedicated-fix-sprint
+  production_issue: war-room-response
+
+compliance:
+  - SOC2
+  - GDPR
+  - WCAG 2.1 AA
+  - ISO 27001
+
+success_metrics:
+  - On-time delivery: 95%
+  - Bug density: < 2 per KLOC
+  - Code coverage: > 80%
+  - Performance: < 2s page load
+  - Security vulnerabilities: 0 critical, < 3 medium
+  - Stakeholder satisfaction: > 4.5/5
+
+escalation_matrix:
+  technical: tech-lead -> product-owner -> steering-committee
+  business: product-owner -> sponsor -> executive
+  quality: qa-lead -> tech-lead -> product-owner
+  security: security-engineer -> tech-lead -> ciso
+
+notes: |
+  This template is designed for enterprise environments with formal
+  processes, compliance requirements, and multiple stakeholders.
+  Emphasizes quality, security, and thorough documentation.
+  Suitable for regulated industries and mission-critical features.

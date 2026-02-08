@@ -1,0 +1,248 @@
+# Startup MVP Team Template
+# 精益创业团队模板 - 快速MVP开发
+
+name: startup-mvp-team
+description: Lean startup team for rapid MVP development
+topology: hub-spoke
+leadership: product-manager
+methodology: agile-sprint
+
+team_size: 6
+estimated_duration: 2-4 weeks
+token_budget: balanced
+
+roles:
+  - id: ceo
+    type: strategic-leader
+    model: opus
+    description: Product vision, market validation, strategic decisions
+    skills:
+      - business-strategy
+      - market-analysis
+      - product-vision
+    responsibilities:
+      - Define product vision and strategy
+      - Make critical business decisions
+      - Validate market fit
+      - Set priorities and constraints
+    deliverables:
+      - Product vision document
+      - Priority matrix
+      - Go-to-market strategy
+
+  - id: product-manager
+    type: team-lead
+    model: sonnet
+    description: Requirements, user stories, team coordination
+    skills:
+      - product-requirements
+      - user-stories
+      - agile-methodology
+    responsibilities:
+      - Gather and document requirements
+      - Create user stories and acceptance criteria
+      - Coordinate team activities
+      - Manage sprint planning
+    deliverables:
+      - Product requirements document
+      - User story backlog
+      - Sprint plans
+    reports_to: ceo
+
+  - id: ux-designer
+    type: designer
+    model: sonnet
+    description: User experience, interface design, prototypes
+    skills:
+      - frontend-design
+      - canvas-design
+      - web-design-guidelines
+    responsibilities:
+      - Design user interfaces
+      - Create mockups and prototypes
+      - Define user flows
+      - Establish design system
+    deliverables:
+      - UI mockups
+      - Interactive prototypes
+      - Design system
+    reports_to: product-manager
+
+  - id: fullstack-developer
+    type: developer
+    model: sonnet
+    description: End-to-end implementation, rapid development
+    skills:
+      - vercel-react-best-practices
+      - api-development
+      - database-design
+    responsibilities:
+      - Implement frontend and backend
+      - Set up infrastructure
+      - Integrate third-party services
+      - Deploy application
+    deliverables:
+      - Working application
+      - API endpoints
+      - Database schema
+      - Deployment pipeline
+    reports_to: product-manager
+
+  - id: qa-engineer
+    type: tester
+    model: haiku
+    description: Testing, quality assurance, user feedback
+    skills:
+      - webapp-testing
+      - test-automation
+    responsibilities:
+      - Create test cases
+      - Perform testing
+      - Report bugs
+      - Gather user feedback
+    deliverables:
+      - Test cases
+      - Bug reports
+      - Quality metrics
+    reports_to: product-manager
+
+  - id: content-writer
+    type: writer
+    model: haiku
+    description: Documentation, marketing content, user guides
+    skills:
+      - technical-writing
+      - marketing-copy
+    responsibilities:
+      - Write user documentation
+      - Create marketing content
+      - Develop help guides
+      - Write release notes
+    deliverables:
+      - User documentation
+      - Marketing copy
+      - Help center content
+    reports_to: product-manager
+
+workflow:
+  phases:
+    - name: discovery
+      duration: 20%
+      participants: [ceo, product-manager, ux-designer]
+      activities:
+        - Market research
+        - User interviews
+        - Competitive analysis
+        - Feature prioritization
+
+    - name: design
+      duration: 20%
+      participants: [ux-designer, product-manager]
+      dependencies: [discovery]
+      activities:
+        - Create wireframes
+        - Design mockups
+        - User flow definition
+        - Design review
+
+    - name: development
+      duration: 40%
+      participants: [fullstack-developer]
+      dependencies: [design]
+      activities:
+        - Frontend implementation
+        - Backend development
+        - Database setup
+        - Integration
+
+    - name: testing
+      duration: 15%
+      participants: [qa-engineer, fullstack-developer]
+      dependencies: [development]
+      activities:
+        - Unit testing
+        - Integration testing
+        - User acceptance testing
+        - Bug fixes
+
+    - name: launch
+      duration: 5%
+      participants: [all]
+      dependencies: [testing]
+      activities:
+        - Deployment
+        - Documentation
+        - Marketing preparation
+        - Launch announcement
+
+communication:
+  channels:
+    - name: daily-standup
+      type: synchronous
+      participants: all
+      frequency: daily
+      duration: 15min
+
+    - name: sprint-planning
+      type: synchronous
+      participants: all
+      frequency: weekly
+      duration: 60min
+
+    - name: design-review
+      type: asynchronous
+      participants: [ux-designer, product-manager, ceo]
+      frequency: as-needed
+
+    - name: code-review
+      type: asynchronous
+      participants: [fullstack-developer, qa-engineer]
+      frequency: per-commit
+
+coordination:
+  task_management: kanban
+  version_control: git
+  documentation: shared-context
+  decision_making: product-manager-led
+  conflict_resolution: escalate-to-ceo
+
+quality_gates:
+  - name: design-approval
+    owner: product-manager
+    criteria:
+      - Mockups complete
+      - User flows defined
+      - CEO approval
+
+  - name: feature-complete
+    owner: qa-engineer
+    criteria:
+      - All user stories implemented
+      - Tests passing
+      - No critical bugs
+
+  - name: launch-readiness
+    owner: ceo
+    criteria:
+      - Quality metrics met
+      - Documentation complete
+      - Marketing ready
+
+error_recovery:
+  agent_failure: redistribute-to-available
+  task_failure: retry-with-assistance
+  deadline_miss: scope-reduction
+  quality_issue: iterative-improvement
+
+success_metrics:
+  - Time to MVP: < 4 weeks
+  - Feature completion: > 80%
+  - Bug density: < 5 per KLOC
+  - Test coverage: > 70%
+  - User satisfaction: > 4/5
+
+notes: |
+  This template is optimized for rapid MVP development with a small,
+  efficient team. The focus is on speed and iteration rather than
+  perfection. Suitable for startups, proof-of-concepts, and rapid
+  prototyping scenarios.
